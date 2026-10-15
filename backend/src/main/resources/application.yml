@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clubdocs
+    username: clubdocs
+    password: clubdocs
+  flyway:
+    repair-on-migrate: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
