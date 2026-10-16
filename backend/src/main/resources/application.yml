@@ -3,6 +3,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/clubdocs
     username: clubdocs
     password: clubdocs
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
   flyway:
     repair-on-migrate: true
   jpa:
