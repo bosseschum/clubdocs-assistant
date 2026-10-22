@@ -37,11 +37,7 @@ class DocumentServiceTest {
         verify(documentRepository, never()).deleteById(any());
     }
 
-    // TODO (you), same pattern (arrange, act, assert):
-    //  - delete_removesDocumentWhenItExists
-    //  - create_rejectsEmptyFile        (use MockMultipartFile from org.springframework.mock.web)
-    //  - create_savesDocumentWithFileMetadata   (capture the saved Document with ArgumentCaptor)
-    @Test 
+    @Test
     void delete_removesDocumentWhenItExists() {
         UUID id = UUID.randomUUID();
         when(documentRepository.existsById(id)).thenReturn(true);
@@ -49,15 +45,16 @@ class DocumentServiceTest {
         verify(documentRepository).deleteById(id);
     }
 
-    @Test 
+    @Test
     void create_rejectsEmptyFile() {
         var file = new org.springframework.mock.web.MockMultipartFile("file", new byte[0]);
         assertThrows(IllegalArgumentException.class, () -> documentService.create(file));
     }
 
-    @Test 
+    @Test
     void create_savesDocumentWithFileMetadata() {
-        var file = new org.springframework.mock.web.MockMultipartFile("file", "test.txt", "text/plain", "Hello, World!".getBytes());
+        var file = new org.springframework.mock.web.MockMultipartFile("file", "test.txt", "text/plain",
+                "Hello, World!".getBytes());
         documentService.create(file);
         verify(documentRepository).save(any(Document.class));
     }

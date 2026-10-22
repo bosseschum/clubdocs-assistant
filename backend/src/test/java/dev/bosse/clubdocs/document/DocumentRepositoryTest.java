@@ -17,15 +17,19 @@ import dev.bosse.clubdocs.TestcontainersConfiguration;
 import jakarta.persistence.EntityManager;
 
 /**
- * Integration test for the persistence layer, against a real PostgreSQL (Testcontainers).
+ * Integration test for the persistence layer, against a real PostgreSQL
+ * (Testcontainers).
  *
  * What happens when it runs:
- *  - @DataJpaTest starts only the JPA parts of Spring (no web layer, no controllers).
- *  - Flyway runs your real migrations on the fresh container database.
- *  - Hibernate validates every entity against the migrated schema (ddl-auto: validate).
- *    So even an empty test here would have caught the uuid/bigint mismatch.
- *  - Each test runs in a transaction that is rolled back afterwards, so tests don't
- *    leak data into each other.
+ * - @DataJpaTest starts only the JPA parts of Spring (no web layer, no
+ * controllers).
+ * - Flyway runs your real migrations on the fresh container database.
+ * - Hibernate validates every entity against the migrated schema (ddl-auto:
+ * validate).
+ * So even an empty test here would have caught the uuid/bigint mismatch.
+ * - Each test runs in a transaction that is rolled back afterwards, so tests
+ * don't
+ * leak data into each other.
  */
 @DataJpaTest
 @Import(TestcontainersConfiguration.class)
@@ -53,17 +57,7 @@ class DocumentRepositoryTest {
         assertEquals(DocumentStatus.UPLOADED, reloaded.getStatus());
     }
 
-    // TODO (you), same pattern (save, flush, clear, read back):
-    //  - findAll_sortedByUploadedAtDescending_returnsNewestFirst
-    //      Tip: the constructor sets uploadedAt = now(). For a deterministic order, set it
-    //      yourself with ReflectionTestUtils.setField(doc, "uploadedAt", someInstant)
-    //      (org.springframework.test.util.ReflectionTestUtils).
-    //  - save_withNullFilename_isRejectedByDatabase
-    //      Use documentRepository.saveAndFlush(...) and assertThrows(
-    //      org.springframework.dao.DataIntegrityViolationException.class, ...).
-    //      This proves the NOT NULL constraint in your migration is really there.
-    //  - existsById_returnsFalseForUnknownId   (the method DocumentService.delete relies on)
-    @Test 
+    @Test
     void findAll_sortedByUploadedAtDescending_returnsNewestFirst() {
         Document doc1 = new Document("doc1.pdf", "application/pdf", 1000);
         Document doc2 = new Document("doc2.pdf", "application/pdf", 1000);
@@ -83,7 +77,7 @@ class DocumentRepositoryTest {
         assertEquals("doc1.pdf", documents.get(2).getFilename());
     }
 
-    @Test 
+    @Test
     void save_withNullFilename_isRejectedByDatabase() {
         Document doc = new Document(null, "application/pdf", 1000);
         assertThrows(org.springframework.dao.DataIntegrityViolationException.class, () -> {
@@ -91,7 +85,7 @@ class DocumentRepositoryTest {
         });
     }
 
-    @Test 
+    @Test
     void existsById_returnsFalseForUnknownId() {
 
         boolean exists = documentRepository.existsById(UUID.randomUUID());
