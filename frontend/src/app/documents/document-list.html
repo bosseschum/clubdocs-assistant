@@ -1,0 +1,28 @@
+@if (documents().length === 0) {
+  <p>No documents yet. Upload one to get started.</p>
+} @else {
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Status</th>
+        <th>Uploaded</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (doc of documents(); track doc.id) {
+        <tr>
+          <td>{{ doc.filename }}</td>
+          <td>{{ formatSize(doc.sizeBytes) }}</td>
+          <td>{{ doc.status }}</td>
+          <td>{{ doc.uploadedAt | date: 'medium' }}</td>
+          <td>
+            <button type="button" (click)="deleteRequested.emit(doc.id)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

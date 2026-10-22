@@ -1,0 +1,19 @@
+<h2>Documents</h2>
+
+<app-document-upload [disabled]="uploading()" (fileSelected)="onFileSelected($event)" />
+
+@if (uploading()) {
+  <p>Uploading…</p>
+}
+
+@if (errorMessage(); as message) {
+  <p role="alert" class="error">{{ message }}</p>
+}
+
+@if (documents.isLoading()) {
+  <p>Loading documents…</p>
+} @else if (documents.error()) {
+  <p role="alert" class="error">Could not load documents. Is the backend running?</p>
+} @else {
+  <app-document-list [documents]="documents.value()" (deleteRequested)="onDeleteRequested($event)" />
+}

@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: "21"   # keep in sync with <java.version> in pom.xml
+          java-version: "21" # keep in sync with <java.version> in pom.xml
           cache: maven
 
       # Testcontainers needs Docker, which is preinstalled on ubuntu-latest.
@@ -30,3 +30,26 @@ jobs:
         with:
           name: surefire-reports
           path: backend/target/surefire-reports
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24 # Angular 22 needs Node ^22.22.3, ^24.15 or >=26
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npx ng test --no-watch
+
+      - name: Production build
+        run: npx ng build
