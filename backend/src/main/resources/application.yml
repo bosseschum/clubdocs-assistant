@@ -19,3 +19,7 @@ spring:
         dimensions: 384
         distance-type: COSINE_DISTANCE
         index-type: HNSW
+
+clubdocs:
+  storage:
+    dir: ./data/uploads

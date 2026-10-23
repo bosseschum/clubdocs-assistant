@@ -3,6 +3,7 @@ package dev.bosse.clubdocs.document;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class DocumentService {
 
     private final DocumentRepository documentRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
-    // Constructor injection: Spring passes in the repository Spring Data generated.
-    public DocumentService(DocumentRepository documentRepository) {
+    // Constructor injection: Spring provides the repository and event publisher.
+    public DocumentService(DocumentRepository documentRepository, ApplicationEventPublisher eventPublisher) {
         this.documentRepository = documentRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     /**
@@ -36,7 +39,9 @@ public class DocumentService {
         long size = file.getSize();
 
         Document document = new Document(filename, contentType, size);
-        return documentRepository.save(document);
+        Document savedDocument = documentRepository.save(document);
+        eventPublisher.publishEvent(new DocumentUploadedEvent(savedDocument.getId()));
+        return savedDocument;
     }
 
     /**
@@ -57,5 +62,6 @@ public class DocumentService {
         }
 
         documentRepository.deleteById(id);
+        eventPublisher.publishEvent(new DocumentDeletedEvent(id));
     }
 }
