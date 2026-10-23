@@ -12,3 +12,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+  ai:
+    vectorstore:
+      pgvector:
+        initialize-schema: false
+        dimensions: 384
+        distance-type: COSINE_DISTANCE
+        index-type: HNSW
