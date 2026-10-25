@@ -13,7 +13,7 @@ const sampleDocument: DocumentResponse = {
   filename: 'bylaws.pdf',
   contentType: 'application/pdf',
   sizeBytes: 2048,
-  status: 'UPLOADED',
+  status: 'READY', // Updated from 'UPLOADED' to prevent unintended initial polling
   uploadedAt: '2026-10-16T09:38:59.756016Z',
 };
 
@@ -49,6 +49,17 @@ describe('DocumentsPage', () => {
     const page = await renderWithDocuments([sampleDocument]);
 
     expect(page.textContent).toContain('bylaws.pdf');
+    expect(page.textContent).toContain('Uploaded');
+  });
+
+  it('shows readable processing and failed statuses with recovery guidance', async () => {
+    const page = await renderWithDocuments([
+      { ...sampleDocument, status: 'PROCESSING' },
+      { ...sampleDocument, id: 'failed-document', status: 'FAILED' },
+    ]);
+
+    expect(page.textContent).toContain('Processing…');
+    expect(page.textContent).toContain('Failed. Delete this document and upload it again.');
   });
 
   it('shows a hint when there are no documents', async () => {

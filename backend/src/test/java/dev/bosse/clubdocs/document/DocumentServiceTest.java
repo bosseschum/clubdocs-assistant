@@ -78,7 +78,7 @@ class DocumentServiceTest {
 
     @Test
     void create_savesDocumentWithFileMetadata() {
-        var file = new org.springframework.mock.web.MockMultipartFile("file", "test.txt", "text/plain",
+        var file = new org.springframework.mock.web.MockMultipartFile("file", "test.pdf", "application/pdf",
                 "Hello, World!".getBytes());
         Document savedDocument = mock(Document.class);
         when(savedDocument.getId()).thenReturn(UUID.randomUUID());
@@ -95,7 +95,7 @@ class DocumentServiceTest {
         Document savedDocument = mock(Document.class);
         when(savedDocument.getId()).thenReturn(id);
         when(documentRepository.save(any(Document.class))).thenReturn(savedDocument);
-        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain",
+        MockMultipartFile file = new MockMultipartFile("file", "test.pdf", "application/pdf",
                 "Hello, World!".getBytes());
 
         documentService.create(file);
@@ -103,5 +103,23 @@ class DocumentServiceTest {
         ArgumentCaptor<Object> eventCaptor = ArgumentCaptor.forClass(Object.class);
         verify(eventPublisher).publishEvent(eventCaptor.capture());
         assertEquals(new DocumentUploadedEvent(id), eventCaptor.getValue());
+    }
+
+    @Test
+    void create_rejectsNonPdfFile() {
+        var file = new org.springframework.mock.web.MockMultipartFile("file", "test.txt", "text/plain",
+                "Hello, World!".getBytes());
+        assertThrows(IllegalArgumentException.class, () -> documentService.create(file));
+    }
+
+    @Test
+    void create_storesPdfFile() {
+        var file = new org.springframework.mock.web.MockMultipartFile("file", "test.pdf", "application/pdf",
+                "Hello, World!".getBytes());
+        Document savedDocument = mock(Document.class);
+        when(savedDocument.getId()).thenReturn(UUID.randomUUID());
+        when(documentRepository.save(any(Document.class))).thenReturn(savedDocument);
+        documentService.create(file);
+        verify(documentRepository).save(any(Document.class));
     }
 }

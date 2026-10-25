@@ -1,7 +1,6 @@
 package dev.bosse.clubdocs.ingestion;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
 
 import dev.bosse.clubdocs.document.DocumentService;
+import dev.bosse.clubdocs.document.DocumentStatus;
 import dev.bosse.clubdocs.storage.FileStorage;
 
 /**
@@ -37,7 +37,6 @@ public class IngestionService {
     // Metadata key holding the id of the uploaded document. deleteChunks() filters
     // on it.
     public static final String META_DOCUMENT_ID = "documentId";
-    public static final String META_FILENAME = "filename";
     public static final String META_PAGE = "page";
     public static final String META_CHUNK_INDEX = "chunkIndex";
 
@@ -64,45 +63,67 @@ public class IngestionService {
 
     /**
      * Runs in the background after an upload (see IngestionListener).
-     *
-     * TODO (you):
-     * 1. Set the status to PROCESSING: documentService.updateStatus(documentId,
-     * DocumentStatus.PROCESSING)
-     * 2. pages = readPages(documentId)
-     * 3. chunks = toChunkDocuments(documentId, filename?, pages) (see below; decide
-     * where filename comes from)
-     * 4. vectorStore.add(chunks) <- this is where the embedding model runs
-     * 5. Set the status to READY.
-     * 6. If ANYTHING throws: log it (log.error(message, exception)) and set the
-     * status to FAILED.
-     * An exception must never escape: nobody is waiting for this thread, so it
-     * would just vanish.
-     * Think about: what if the PDF has no extractable text (a scanned image)? Is
-     * that READY or FAILED?
      */
     public void ingest(UUID documentId) {
-        throw new UnsupportedOperationException("TODO: implement ingest");
+        try {
+            documentService.updateStatus(documentId, DocumentStatus.PROCESSING);
+
+            List<Document> pages = readPages(documentId);
+            List<Document> chunks = toChunkDocuments(documentId, pages);
+
+            if (chunks.isEmpty()) {
+                throw new IllegalStateException("No extractable text found in document " + documentId);
+            }
+
+            vectorStore.add(chunks);
+            documentService.updateStatus(documentId, DocumentStatus.READY);
+        } catch (Exception e) {
+            log.error("Ingestion failed for document {}", documentId, e);
+            try {
+                documentService.updateStatus(documentId, DocumentStatus.FAILED);
+            } catch (Exception statusException) {
+                log.error("Failed to update status to FAILED for document {}", documentId, statusException);
+            }
+        }
     }
 
     /**
      * Converts page documents into chunk documents ready for the vector store.
-     *
-     * TODO (you): for every page
-     * - read its text: page.getText() (if that method is missing in your Spring AI
-     * version, try getContent())
-     * - read its page number: page.getMetadata().get("page_number") (set by the PDF
-     * reader)
-     * - split the text with chunker.chunk(...)
-     * - create one Spring AI Document per chunk:
-     * new Document(chunkText, Map.of(META_DOCUMENT_ID, documentId.toString(),
-     * META_PAGE, pageNumber, META_CHUNK_INDEX, index, ...))
-     * Metadata values must not be null. Keep the documentId as a STRING (the delete
-     * filter compares strings).
-     * - chunkIndex: counted across the whole document, or per page? Decide, and
-     * note it in a comment.
      */
     List<Document> toChunkDocuments(UUID documentId, List<Document> pages) {
-        throw new UnsupportedOperationException("TODO: implement toChunkDocuments");
+        List<Document> chunks = new ArrayList<>();
+
+        if (pages.isEmpty()) {
+            log.warn("Document {} has no extractable text", documentId);
+        }
+
+        int chunkIndex = 0;
+
+        for (int i = 0; i < pages.size(); i++) {
+            Document page = pages.get(i);
+            Object pageNumberValue = page.getMetadata().get("page_number");
+            Integer pageNumber = pageNumberValue == null ? null : Integer.parseInt(String.valueOf(pageNumberValue));
+
+            if (pageNumber == null) {
+                log.warn("Page {} of document {} has no page_number metadata, chunks will be created without page info", i, documentId);
+            }
+
+            String text = page.getText();
+            List<String> pageChunks = chunker.chunk(TextNormalizer.normalize(text));
+
+            for (String chunkText : pageChunks) {
+                Map<String, Object> metadata = new HashMap<>();
+                metadata.put(META_DOCUMENT_ID, documentId);
+                if (pageNumber != null) {
+                    metadata.put(META_PAGE, pageNumber);
+                }
+                metadata.put(META_CHUNK_INDEX, chunkIndex);
+                Document chunkDoc = new Document(chunkText, metadata);
+                chunks.add(chunkDoc);
+                chunkIndex++;
+            }
+        }
+        return chunks;
     }
 
     /**

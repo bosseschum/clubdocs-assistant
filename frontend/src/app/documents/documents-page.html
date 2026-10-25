@@ -10,7 +10,7 @@
   <p role="alert" class="error">{{ message }}</p>
 }
 
-@if (documents.isLoading()) {
+@if (documents.status() === 'loading') {
   <p>Loading documents…</p>
 } @else if (documents.error()) {
   <p role="alert" class="error">Could not load documents. Is the backend running?</p>

@@ -43,7 +43,7 @@ class DocumentRepositoryTest {
 
     @Test
     void save_persistsDocumentAndGeneratesId() {
-        Document saved = documentRepository.save(new Document("bylaws.pdf", "application/pdf", 1234));
+        Document saved = documentRepository.save(new Document("sample/sample-bylaws.pdf", "application/pdf", 1234));
 
         // Without flush + clear, findById would return the SAME object from the
         // persistence context (first-level cache) and never touch the database.
@@ -53,7 +53,7 @@ class DocumentRepositoryTest {
 
         assertNotNull(saved.getId());
         Document reloaded = documentRepository.findById(saved.getId()).orElseThrow();
-        assertEquals("bylaws.pdf", reloaded.getFilename());
+        assertEquals("sample/sample-bylaws.pdf", reloaded.getFilename());
         assertEquals(DocumentStatus.UPLOADED, reloaded.getStatus());
     }
 

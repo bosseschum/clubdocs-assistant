@@ -16,7 +16,14 @@
         <tr>
           <td>{{ doc.filename }}</td>
           <td>{{ formatSize(doc.sizeBytes) }}</td>
-          <td>{{ doc.status }}</td>
+          <td>
+            @switch (doc.status) {
+              @case ('UPLOADED') { UPLOADED }
+              @case ('PROCESSING') { Processing… }
+              @case ('READY') { READY }
+              @case ('FAILED') { Failed. Delete this document and upload it again. }
+            }
+          </td>
           <td>{{ doc.uploadedAt | date: 'medium' }}</td>
           <td>
             <button type="button" (click)="deleteRequested.emit(doc.id)">Delete</button>

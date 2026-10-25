@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import dev.bosse.clubdocs.storage.FileStorage;
+
 /**
  * Business logic. Knows nothing about HTTP status codes or JSON.
  * Failures are reported by throwing exceptions (see ApiExceptionHandler).
@@ -16,30 +18,45 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class DocumentService {
 
+    private static final String PDF_CONTENT_TYPE = "application/pdf";
+
     private final DocumentRepository documentRepository;
+    private final FileStorage fileStorage;
     private final ApplicationEventPublisher eventPublisher;
 
-    // Constructor injection: Spring provides the repository and event publisher.
-    public DocumentService(DocumentRepository documentRepository, ApplicationEventPublisher eventPublisher) {
+    // Constructor injection: Spring provides the repository, the file storage and the event publisher.
+    public DocumentService(DocumentRepository documentRepository, FileStorage fileStorage,
+                           ApplicationEventPublisher eventPublisher) {
         this.documentRepository = documentRepository;
+        this.fileStorage = fileStorage;
         this.eventPublisher = eventPublisher;
     }
 
     /**
-     * Register an uploaded file. For now only the metadata is stored.
+     * Register an uploaded PDF: save its metadata, store the file, and announce the upload so
+     * ingestion can start (after this transaction has committed, see IngestionListener).
      */
     @Transactional
     public Document create(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("File must exist and not be empty");
         }
+        // Only PDFs can be ingested. A client can lie about the content type, but then the PDF
+        // reader fails later and the document ends up FAILED, which is acceptable.
+        if (!PDF_CONTENT_TYPE.equals(file.getContentType())) {
+            throw new IllegalArgumentException("Only PDF files are supported");
+        }
 
-        String filename = file.getOriginalFilename() != null ? file.getOriginalFilename() : "file" + System.currentTimeMillis();
+        String filename = file.getOriginalFilename() != null ? file.getOriginalFilename()
+                : "file" + System.currentTimeMillis();
         String contentType = file.getContentType();
         long size = file.getSize();
 
         Document document = new Document(filename, contentType, size);
         Document savedDocument = documentRepository.save(document);
+
+        // If storing fails, the exception rolls the transaction back: no row without a file.
+        fileStorage.store(savedDocument.getId(), file);
         eventPublisher.publishEvent(new DocumentUploadedEvent(savedDocument.getId()));
         return savedDocument;
     }
@@ -53,7 +70,7 @@ public class DocumentService {
     }
 
     /**
-     * Delete a document by id.
+     * Delete a document by id, together with its stored file and (via an event) its chunks.
      */
     @Transactional
     public void delete(UUID id) {
@@ -62,6 +79,14 @@ public class DocumentService {
         }
 
         documentRepository.deleteById(id);
+        fileStorage.delete(id);
         eventPublisher.publishEvent(new DocumentDeletedEvent(id));
+    }
+
+    @Transactional
+    public void updateStatus(UUID id, DocumentStatus status) {
+        Document document = documentRepository.findById(id)
+                .orElseThrow(() -> new DocumentNotFoundException(id));
+        document.setStatus(status);
     }
 }
