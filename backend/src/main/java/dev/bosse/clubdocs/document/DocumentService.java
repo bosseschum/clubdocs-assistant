@@ -1,7 +1,10 @@
 package dev.bosse.clubdocs.document;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Sort;
@@ -88,5 +91,15 @@ public class DocumentService {
         Document document = documentRepository.findById(id)
                 .orElseThrow(() -> new DocumentNotFoundException(id));
         document.setStatus(status);
+    }
+
+    /**
+     * Look up filenames for a set of document IDs. Used by the chat retrieval service to
+     * enrich vector-search results with source filenames.
+     */
+    @Transactional(readOnly = true)
+    public Map<UUID, String> findFilenames(Set<UUID> ids) {
+        return documentRepository.findAllById(ids).stream()
+                .collect(Collectors.toMap(Document::getId, Document::getFilename));
     }
 }

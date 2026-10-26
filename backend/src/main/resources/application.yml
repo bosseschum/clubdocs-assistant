@@ -13,6 +13,18 @@ spring:
     hibernate:
       ddl-auto: validate
   ai:
+    model:
+      embedding: transformers # keep the local ONNX embeddings; the Ollama starter could add a second embedding model
+    ollama:
+      base-url: http://localhost:11434
+      init:
+        pull-model-strategy: never
+      chat:
+        model: qwen3.5:4b
+        num-ctx: 4096
+        temperature: 0.1 # low = fewer hallucinated details
+        options:
+          think-option: FALSE # Qwen3 auto-enables thinking; disable for faster RAG answers
     vectorstore:
       pgvector:
         initialize-schema: false
