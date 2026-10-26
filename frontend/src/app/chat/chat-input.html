@@ -1,0 +1,7 @@
+<form (submit)="onSubmit($event, field)">
+  <label>
+    Frage zu deinen Dokumenten
+    <input #field type="text" name="question" maxlength="500" autocomplete="off" [disabled]="disabled()" />
+  </label>
+  <button type="submit" [disabled]="disabled()">Fragen</button>
+</form>

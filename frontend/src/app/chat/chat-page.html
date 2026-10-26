@@ -1,0 +1,11 @@
+<h2>Fragen an deine Dokumente</h2>
+
+@for (message of messages(); track message.id) {
+  <app-chat-message [message]="message" />
+}
+
+@if (pending()) {
+  <p role="status">Antwort wird erstellt … das kann bis zu 30 Sekunden dauern.</p>
+}
+
+<app-chat-input [disabled]="pending()" (questionSubmitted)="onQuestionSubmitted($event)" />

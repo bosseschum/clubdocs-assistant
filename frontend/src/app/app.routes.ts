@@ -7,5 +7,8 @@ export const routes: Routes = [
     // Lazy-loaded: the page's code is only fetched when the route is opened.
     loadComponent: () => import('./documents/documents-page').then((m) => m.DocumentsPage),
   },
-  // The chat page is added in a later milestone.
+  {
+    path: 'chat',
+    loadComponent: () => import('./chat/chat-page').then((m) => m.ChatPage),
+  },
 ];
