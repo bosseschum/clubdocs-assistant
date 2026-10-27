@@ -20,6 +20,6 @@
   </div>
 
   <footer class="chat-footer">
-    <app-chat-input [disabled]="pending()" (questionSubmitted)="onQuestionSubmitted($event)" />
+    <app-chat-input #input [disabled]="pending()" (questionSubmitted)="onQuestionSubmitted($event)" />
   </footer>
 </div>

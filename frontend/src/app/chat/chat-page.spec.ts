@@ -1,3 +1,5 @@
+import '@angular/compiler';
+
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -56,7 +58,7 @@ describe('ChatPage', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    expect(page.textContent).toContain('Der Jahresbeitrag beträgt 48 Euro siehe [1].');
+    expect(page.textContent).toContain('Der Jahresbeitrag beträgt 48 Euro [1].');
     expect(page.textContent).toContain('satzung-musterverein.pdf');
     expect(page.textContent).not.toContain('Antwort wird erstellt');
     http.verify();
@@ -81,7 +83,7 @@ describe('ChatPage', () => {
     request.flush({ detail: 'Der Server ist momentan nicht verfügbar.' }, { status: 503, statusText: 'Service Unavailable' });
     await fixture.whenStable();
     fixture.detectChanges();
-    expect(page.textContent).toContain('Die Sprachmodell ist nicht erreichbar');
+    expect(page.textContent).toContain('Das Sprachmodell ist gerade nicht erreichbar');
   });
 
   it('disables the input while waiting for an answer', () => {
@@ -97,7 +99,7 @@ describe('ChatPage', () => {
     await fixture.whenStable();
     fixture.detectChanges();
     expect(page.textContent).toContain('Der Jahresbeitrag beträgt');
-    expect(page.textContent).toContain('siehe [1]');
+    expect(page.textContent).toContain('[1]');
     expect(page.querySelector('li.cited')).not.toBeNull();
   })
 });

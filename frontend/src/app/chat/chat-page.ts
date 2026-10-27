@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 
 import { ChatApi } from '../core/chat-api';
 import { ChatMessage } from '../core/chat.model';
@@ -20,6 +20,8 @@ export class ChatPage {
   private readonly api = inject(ChatApi);
   private nextId = 1;
 
+  @ViewChild('input') protected input?: ChatInput;
+
   protected readonly messages = signal<ChatMessage[]>([]);
   protected readonly pending = signal(false);
 
@@ -29,10 +31,12 @@ export class ChatPage {
     this.api.ask(question).subscribe({
       next: (answer) => {
         this.pending.set(false)
+        this.input?.focus()
         this.addMessage('assistant', answer.answer, answer.sources)
       },
       error: (err) => {
         this.pending.set(false)
+        this.input?.focus()
         this.addMessage('error', this.errorText(err))
       },
     })
@@ -49,11 +53,12 @@ export class ChatPage {
 
   private errorText(err: HttpErrorResponse): string {
     if (err.status === 503) {
-      return 'Die Sprachmodell ist nicht erreichbar (z.B. Ollama läuft nicht)';
+      return "'Das Sprachmodell ist gerade nicht erreichbar. Bitte versuche es später noch einmal.";
     } else if (err.status === 400) {
       return typeof err.error.detail === 'string' ? err.error.detail : 'Die Frage wurde abgelehnt';
-    } else {
-      return 'Ein unbekannter Fehler ist aufgetreten';
+    } else if (err.status === 0) {
+        return 'Der Server ist nicht erreichbar.';
     }
+    return 'Ein unbekannter Fehler ist aufgetreten';
   }
 }

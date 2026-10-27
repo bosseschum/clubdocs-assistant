@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, ElementRef, input, output, ViewChild } from '@angular/core';
 
 /**
  * Presentational component: a text field and a button. It reports the question upwards and
@@ -12,6 +12,12 @@ import { Component, input, output } from '@angular/core';
 export class ChatInput {
   readonly disabled = input(false);
   readonly questionSubmitted = output<string>();
+
+  @ViewChild('field') private fieldRef?: ElementRef<HTMLInputElement>;
+
+  focus(): void {
+    this.fieldRef?.nativeElement.focus();
+  }
 
   protected onSubmit(event: Event, field: HTMLInputElement): void {
     event.preventDefault();

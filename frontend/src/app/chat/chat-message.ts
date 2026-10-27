@@ -15,8 +15,13 @@ import { citedNumbers } from './citations';
 export class ChatMessageView {
   readonly message = input.required<ChatMessage>();
 
-  protected readonly cited = computed(() => citedNumbers(this.message().text));
-  protected readonly formattedText = computed(() =>
-    this.message().text.replace(/\[(\d+)\]/g, 'siehe [$1]'),
+  protected readonly formattedText = computed(() => this.message().text);
+
+  /**
+   * Source numbers the answer cites. Numbers without a matching source are dropped: a small model
+   * can write [7] when only four sources exist, and that must neither be counted nor highlighted.
+   */
+  protected readonly cited = computed(() =>
+    citedNumbers(this.message().text).filter((n) => n <= this.message().sources.length),
   );
 }
