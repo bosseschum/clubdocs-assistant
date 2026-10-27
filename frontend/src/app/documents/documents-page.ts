@@ -13,6 +13,7 @@ import { DocumentUpload } from './document-upload';
   selector: 'app-documents-page',
   imports: [DocumentUpload, DocumentList],
   templateUrl: './documents-page.html',
+  styleUrls: ['./styles/documents-page.css'],
 })
 export class DocumentsPage {
   private readonly api = inject(DocumentApi);

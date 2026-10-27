@@ -7,6 +7,7 @@ import { Component, input, output } from '@angular/core';
 @Component({
   selector: 'app-document-upload',
   templateUrl: './document-upload.html',
+  styleUrls: ['./styles/document-upload.css'],
 })
 export class DocumentUpload {
   readonly disabled = input(false);

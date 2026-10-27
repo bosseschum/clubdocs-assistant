@@ -7,6 +7,7 @@ import { Component, input, output } from '@angular/core';
 @Component({
   selector: 'app-chat-input',
   templateUrl: './chat-input.html',
+  styleUrls: ['./styles/chat-input.css'],
 })
 export class ChatInput {
   readonly disabled = input(false);

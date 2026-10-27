@@ -1,35 +1,76 @@
 @if (documents().length === 0) {
-  <p>No documents yet. Upload one to get started.</p>
+  <div class="empty-state">
+    <div class="empty-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="9" y1="13" x2="15" y2="13"/>
+      </svg>
+    </div>
+    <h3 class="empty-title">No documents yet</h3>
+    <p class="empty-description">Upload your research materials to get started asking questions.</p>
+  </div>
 } @else {
-  <table>
-    <thead>
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
       <tr>
-        <th>Name</th>
+        <th>Document</th>
         <th>Size</th>
         <th>Status</th>
         <th>Uploaded</th>
-        <th></th>
+        <th class="actions-header"><span class="sr-only">Actions</span></th>
       </tr>
-    </thead>
-    <tbody>
-      @for (doc of documents(); track doc.id) {
-        <tr>
-          <td>{{ doc.filename }}</td>
-          <td>{{ formatSize(doc.sizeBytes) }}</td>
-          <td>
-            @switch (doc.status) {
-              @case ('UPLOADED') { UPLOADED }
-              @case ('PROCESSING') { Processing… }
-              @case ('READY') { READY }
-              @case ('FAILED') { Failed. Delete this document and upload it again. }
-            }
-          </td>
-          <td>{{ doc.uploadedAt | date: 'medium' }}</td>
-          <td>
-            <button type="button" (click)="deleteRequested.emit(doc.id)">Delete</button>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (doc of documents(); track doc.id) {
+          <tr>
+            <td class="cell-filename">
+              <svg class="doc-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <span>{{ doc.filename }}</span>
+            </td>
+            <td class="cell-muted">{{ formatSize(doc.sizeBytes) }}</td>
+            <td>
+              @switch (doc.status) {
+                @case ('UPLOADED') {
+                  <span class="badge badge-neutral">Uploaded</span>
+                }
+                @case ('PROCESSING') {
+                  <span class="badge badge-warning">
+                    <span class="spinner-dot"></span> Processing…
+                  </span>
+                }
+                @case ('READY') {
+                  <span class="badge badge-success">
+                    <span class="status-dot"></span> Ready
+                  </span>
+                }
+                @case ('FAILED') {
+                  <span class="badge badge-danger" title="Failed to process document">Failed</span>
+                }
+              }
+            </td>
+            <td class="cell-muted">{{ doc.uploadedAt | date: 'mediumDate' }}</td>
+            <td class="actions-cell">
+              <button
+                type="button"
+                class="btn-icon btn-delete"
+                title="Delete document"
+                (click)="deleteRequested.emit(doc.id)"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18"/>
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 }

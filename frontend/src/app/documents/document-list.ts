@@ -12,6 +12,7 @@ import { formatSize } from './format-size';
   selector: 'app-document-list',
   imports: [DatePipe],
   templateUrl: './document-list.html',
+  styleUrls: ['./styles/document-list.css'],
 })
 export class DocumentList {
   readonly documents = input.required<DocumentResponse[]>();

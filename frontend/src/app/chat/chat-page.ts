@@ -14,6 +14,7 @@ import { ChatMessageView } from './chat-message';
   selector: 'app-chat-page',
   imports: [ChatInput, ChatMessageView],
   templateUrl: './chat-page.html',
+  styleUrls: ['./styles/chat-page.css'],
 })
 export class ChatPage {
   private readonly api = inject(ChatApi);

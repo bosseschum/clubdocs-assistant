@@ -1,11 +1,25 @@
-<h2>Fragen an deine Dokumente</h2>
+<div class="chat-page-container">
+  <header class="chat-header">
+    <h2>Dokumenten-Research Chat</h2>
+    <p class="chat-subtitle">Stelle Fragen zu deinen hochgeladenen Dokumenten.</p>
+  </header>
 
-@for (message of messages(); track message.id) {
-  <app-chat-message [message]="message" />
-}
+  <div class="messages-container">
+    @for (message of messages(); track message.id) {
+      <app-chat-message [message]="message" />
+    }
 
-@if (pending()) {
-  <p role="status">Antwort wird erstellt … das kann bis zu 30 Sekunden dauern.</p>
-}
+    @if (pending()) {
+      <div role="status" class="pending-indicator">
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="pending-text">Antwort wird erstellt … das kann bis zu 30 Sekunden dauern.</span>
+      </div>
+    }
+  </div>
 
-<app-chat-input [disabled]="pending()" (questionSubmitted)="onQuestionSubmitted($event)" />
+  <footer class="chat-footer">
+    <app-chat-input [disabled]="pending()" (questionSubmitted)="onQuestionSubmitted($event)" />
+  </footer>
+</div>

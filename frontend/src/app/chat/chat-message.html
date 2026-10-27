@@ -1,17 +1,38 @@
-<article [class]="'message ' + message().role">
-  <p class="text">{{ formattedText() }}</p>
+<article [class]="'chat-bubble ' + message().role">
+  <div class="avatar">
+    @if (message().role === 'user') {
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    } @else {
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12L2.5 4.5"/><path d="M12 12v10"/></svg>
+    }
+  </div>
 
-  @if (message().sources.length > 0) {
-    <details>
-      <summary>Quellen ({{ message().sources.length }}, zitiert: {{ cited().length }})</summary>
-      <ol>
-        @for (source of message().sources; track $index) {
-          <li [class.cited]="cited().includes($index + 1)">
-            [{{ $index + 1 }}] {{ source.filename }}, Seite {{ source.page }}
-            <blockquote>{{ source.text }}</blockquote>
-          </li>
-        }
-      </ol>
-    </details>
-  }
+  <div class="message-content">
+    <div class="message-body">
+      <p class="text">{{ formattedText() }}</p>
+    </div>
+
+    @if (message().sources.length > 0) {
+      <details class="sources-accordion">
+        <summary class="sources-summary">
+          <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <span>Quellen</span>
+          <span class="sources-count">{{ cited().length }} zitiert von {{ message().sources.length }}</span>
+        </summary>
+
+        <ol class="sources-list">
+          @for (source of message().sources; track $index) {
+            <li class="source-item" [class.cited]="cited().includes($index + 1)">
+              <div class="source-header">
+                <span class="source-badge">[{{ $index + 1 }}]</span>
+                <span class="source-file">{{ source.filename }}</span>
+                <span class="source-page">S. {{ source.page }}</span>
+              </div>
+              <blockquote class="source-quote">{{ source.text }}</blockquote>
+            </li>
+          }
+        </ol>
+      </details>
+    }
+  </div>
 </article>

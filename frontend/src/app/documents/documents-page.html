@@ -1,19 +1,42 @@
-<h2>Documents</h2>
+<div class="page-container">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Documents</h1>
+      <p class="page-subtitle">Manage and monitor documents used for AI research.</p>
+    </div>
+  </header>
 
-<app-document-upload [disabled]="uploading()" (fileSelected)="onFileSelected($event)" />
+  <section class="upload-section">
+    <app-document-upload [disabled]="uploading()" (fileSelected)="onFileSelected($event)" />
 
-@if (uploading()) {
-  <p>Uploading…</p>
-}
+    @if (uploading()) {
+      <div class="status-banner info-banner">
+        <span class="spinner"></span>
+        <span>Uploading document...</span>
+      </div>
+    }
+  </section>
 
-@if (errorMessage(); as message) {
-  <p role="alert" class="error">{{ message }}</p>
-}
+  @if (errorMessage(); as message) {
+    <div role="alert" class="status-banner error-banner">
+      <svg class="banner-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>{{ message }}</span>
+    </div>
+  }
 
-@if (documents.status() === 'loading') {
-  <p>Loading documents…</p>
-} @else if (documents.error()) {
-  <p role="alert" class="error">Could not load documents. Is the backend running?</p>
-} @else {
-  <app-document-list [documents]="documents.value()" (deleteRequested)="onDeleteRequested($event)" />
-}
+  <section class="documents-section">
+    @if (documents.status() === 'loading') {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading documents…</p>
+      </div>
+    } @else if (documents.error()) {
+      <div role="alert" class="status-banner error-banner">
+        <svg class="banner-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Could not load documents. Please make sure the backend server is running.</span>
+      </div>
+    } @else {
+      <app-document-list [documents]="documents.value()" (deleteRequested)="onDeleteRequested($event)" />
+    }
+  </section>
+</div>

@@ -10,14 +10,7 @@ import { citedNumbers } from './citations';
 @Component({
   selector: 'app-chat-message',
   templateUrl: './chat-message.html',
-  styles: `
-    .text { white-space: pre-wrap; margin: 0.25rem 0; }
-    .user .text { font-weight: 600; }
-    .error .text { color: #b00020; }
-    li.cited { font-weight: 600; }
-    li:not(.cited) { opacity: 0.7; }
-    blockquote { margin: 0.25rem 0 0.75rem 0; white-space: pre-wrap; }
-  `,
+  styleUrls: ['./styles/chat-message.css'],
 })
 export class ChatMessageView {
   readonly message = input.required<ChatMessage>();

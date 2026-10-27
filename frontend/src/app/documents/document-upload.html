@@ -1,4 +1,27 @@
-<label>
-  Upload a document
-  <input type="file" [disabled]="disabled()" (change)="onFileChange($event)" />
-</label>
+<div
+  class="upload-dropzone"
+  [class.disabled]="disabled()"
+  (dragover)="$event.preventDefault()"
+  (drop)="$event.preventDefault(); onFileChange($event)"
+>
+  <input
+    type="file"
+    id="file-upload"
+    class="file-input"
+    [disabled]="disabled()"
+    (change)="onFileChange($event)"
+  />
+  <label for="file-upload" class="upload-label">
+    <div class="icon-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+    </div>
+    <div class="upload-text">
+      <span class="primary-text">Click to upload <span class="subtle-text">or drag and drop</span></span>
+      <span class="hint-text">PDF (up to 25MB)</span>
+    </div>
+  </label>
+</div>
