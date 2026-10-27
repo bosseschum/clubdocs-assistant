@@ -1,0 +1,420 @@
+[
+  {
+    "id": "q01",
+    "category": "conflict",
+    "question": "Wie hoch ist der Jahresbeitrag für Erwachsene?",
+    "mustContain": [
+      "48"
+    ],
+    "niceToHave": [
+      "54"
+    ],
+    "evidence": [
+      "Der Jahresbeitrag für erwachsene Mitglieder beträgt 48 Euro"
+    ],
+    "expectFallback": false,
+    "notes": "Satzung und Beitragsordnung sagen 48 Euro, das Protokoll 2025 beschließt 54 Euro ab 2026. Beste Antwort nennt beides."
+  },
+  {
+    "id": "q02",
+    "category": "fact",
+    "question": "Wie hoch ist der Familienbeitrag?",
+    "mustContain": [
+      "96"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "96 Euro"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q03",
+    "category": "fact",
+    "question": "Wie viel zahlen Studierende?",
+    "mustContain": [
+      "36"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "36 Euro"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q04",
+    "category": "fact",
+    "question": "Wie hoch ist die Aufnahmegebühr?",
+    "mustContain": [
+      "10"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Aufnahmegebühr von 10 Euro"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q05",
+    "category": "fact",
+    "question": "An welchem Tag wird der Beitrag per Lastschrift eingezogen?",
+    "mustContain": [
+      "15. Januar"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "am 15. Januar"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q06",
+    "category": "confusable",
+    "question": "Was kostet eine Rücklastschrift?",
+    "mustContain": [
+      "5 Euro"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Bearbeitungsgebühr von 5 Euro"
+    ],
+    "expectFallback": false,
+    "notes": "Verwechslungsgefahr mit der Mahngebühr (3 Euro)"
+  },
+  {
+    "id": "q07",
+    "category": "confusable",
+    "question": "Wie hoch ist die Mahngebühr?",
+    "mustContain": [
+      "3 Euro"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Mahngebühr von 3 Euro"
+    ],
+    "expectFallback": false,
+    "notes": "Verwechslungsgefahr mit der Rücklastschriftgebühr (5 Euro)"
+  },
+  {
+    "id": "q08",
+    "category": "fact",
+    "question": "Bis wann muss der Beitrag bezahlt werden?",
+    "mustContain": [
+      "31. Januar"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "bis zum 31. Januar"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q09",
+    "category": "fact",
+    "question": "Wie lange ist die Sporthalle samstags geöffnet?",
+    "mustContain": [
+      "9",
+      "18"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Samstags ist die Halle von 9:00 bis 18:00 Uhr geöffnet"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q10",
+    "category": "fact",
+    "question": "Welche Schuhe darf man in der Halle tragen?",
+    "mustContain": [
+      "Hallenschuhe"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Hallenschuhen mit heller Sohle"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q11",
+    "category": "fact",
+    "question": "Was kostet der Austausch des Schließzylinders bei Schlüsselverlust?",
+    "mustContain": [
+      "80"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Schließzylinders mit 80 Euro"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q12",
+    "category": "confusable",
+    "question": "Wie weit im Voraus müssen Hallenzeiten für Gruppen reserviert werden?",
+    "mustContain": [
+      "zwei Wochen"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "mindestens zwei Wochen vorher"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q13",
+    "category": "fact",
+    "question": "Wie viele Mitglieder hatte der Verein Ende 2024?",
+    "mustContain": [
+      "212"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "insgesamt 212 Mitglieder"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q14",
+    "category": "fact",
+    "question": "Wer ist Kassenwart des Vereins?",
+    "mustContain": [
+      "Jonas Muster"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Jonas Muster als Kassenwart"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q15",
+    "category": "confusable",
+    "question": "Wie viele Mitglieder waren bei der Mitgliederversammlung 2025 anwesend?",
+    "mustContain": [
+      "37"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "37 Mitglieder anwesend"
+    ],
+    "expectFallback": false,
+    "notes": "Verwechslungsgefahr mit der Beschlussfähigkeit aus der Satzung (mindestens zehn)"
+  },
+  {
+    "id": "q16",
+    "category": "fact",
+    "question": "Wann findet das Sommerfest 2025 statt?",
+    "mustContain": [
+      "21. Juni"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "am 21. Juni 2025"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q17",
+    "category": "fact",
+    "question": "Wie hoch war der Überschuss laut Kassenbericht?",
+    "mustContain": [
+      "2.550"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Überschuss von 2.550 Euro"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q18",
+    "category": "fact",
+    "question": "Wie viel Kilometergeld wird für Fahrten mit dem privaten Pkw erstattet?",
+    "mustContain": [
+      "0,30"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "0,30 Euro je Kilometer"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q19",
+    "category": "fact",
+    "question": "Bis zu welchem Betrag kann der Kassenwart Auslagen genehmigen?",
+    "mustContain": [
+      "200"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Auslagen bis 200 Euro kann der Kassenwart genehmigen"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q20",
+    "category": "confusable",
+    "question": "Innerhalb welcher Frist muss ein Erstattungsantrag gestellt werden?",
+    "mustContain": [
+      "vier Wochen"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Originalbelegen innerhalb von vier Wochen"
+    ],
+    "expectFallback": false,
+    "notes": "Verwechslungsgefahr: vier Wochen stehen auch bei der Einladungsfrist (Satzung) und beim Härtefallantrag"
+  },
+  {
+    "id": "q21",
+    "category": "fact",
+    "question": "Wie hoch ist die Aufwandsentschädigung für Übungsleiter?",
+    "mustContain": [
+      "15"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "15 Euro je Trainingseinheit"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q22",
+    "category": "fact",
+    "question": "Wie lange werden Mitgliedsdaten nach dem Austritt gespeichert?",
+    "mustContain": [
+      "Kalenderjahr"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "bis zum Ende des Kalenderjahres gespeichert"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q23",
+    "category": "fact",
+    "question": "Wie lange müssen Buchungsbelege aufbewahrt werden?",
+    "mustContain": [
+      "zehn Jahre"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "zehn Jahre aufbewahrt"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q24",
+    "category": "fact",
+    "question": "Wie viele Personen sitzen im Vorstand und wie lange werden sie gewählt?",
+    "mustContain": [
+      "drei",
+      "zwei Jahre"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Dauer von zwei Jahren gewählt"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q25",
+    "category": "fact",
+    "question": "Welche Mehrheit braucht eine Satzungsänderung?",
+    "mustContain": [
+      "drei Viertel"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "Mehrheit von drei Vierteln"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "q26",
+    "category": "fact",
+    "question": "Wie hoch ist der Beitrag für Erwachsene ab 2026?",
+    "mustContain": [
+      "54"
+    ],
+    "niceToHave": [],
+    "evidence": [
+      "von 48 Euro auf 54 Euro"
+    ],
+    "expectFallback": false,
+    "notes": ""
+  },
+  {
+    "id": "n01",
+    "category": "absent",
+    "question": "Wie hoch ist der Mitgliedsbeitrag für Senioren?",
+    "mustContain": [],
+    "niceToHave": [],
+    "evidence": [],
+    "expectFallback": true,
+    "notes": "Für Senioren gibt es keine Regelung"
+  },
+  {
+    "id": "n02",
+    "category": "absent",
+    "question": "Wer ist der Trainer der Fußballmannschaft?",
+    "mustContain": [],
+    "niceToHave": [],
+    "evidence": [],
+    "expectFallback": true,
+    "notes": ""
+  },
+  {
+    "id": "n03",
+    "category": "absent",
+    "question": "Wie wird das Wetter morgen?",
+    "mustContain": [],
+    "niceToHave": [],
+    "evidence": [],
+    "expectFallback": true,
+    "notes": "Nicht zum Thema"
+  },
+  {
+    "id": "n04",
+    "category": "absent",
+    "question": "Wie hoch ist die Miete für die Sporthalle bei Fremdnutzung?",
+    "mustContain": [],
+    "niceToHave": [],
+    "evidence": [],
+    "expectFallback": true,
+    "notes": ""
+  },
+  {
+    "id": "n05",
+    "category": "absent",
+    "question": "Welche Telefonnummer hat die Vorsitzende?",
+    "mustContain": [],
+    "niceToHave": [],
+    "evidence": [],
+    "expectFallback": true,
+    "notes": "Nur eine E-Mail-Adresse für den Datenschutz ist genannt"
+  }
+]
