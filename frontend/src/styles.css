@@ -1,10 +1,20 @@
 :root {
-  --color-bg: #f8fafc;
-  --color-surface: #ffffff;
-  --color-border: #e2e8f0;
-  --color-primary: #2563eb;
-  --color-text-main: #0f172a;
-  --color-text-muted: #64748b;
+  color-scheme: light dark;
+
+  --color-bg: light-dark(#f8fafc, #0f172a);
+  --color-surface: light-dark(#ffffff, #1e293b);
+  --color-border: light-dark(#e2e8f0, #334155);
+  --color-primary: light-dark(#2563eb, #3b82f6);
+  --color-text-main: light-dark(#0f172a, #f8fafc);
+  --color-text-muted: light-dark(#64748b, #94a3b8);
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
 }
 
 body {
@@ -77,12 +87,12 @@ body {
 
 .nav-link:hover {
   color: var(--color-text-main);
-  background-color: #f1f5f9;
+  background-color: var(--color-bg);
 }
 
 .nav-link.active {
   color: var(--color-primary);
-  background-color: #eff6ff;
+  background-color: var(--color-bg);
 }
 
 .app-main {

@@ -2,8 +2,8 @@
 .empty-state {
   text-align: center;
   padding: 48px 24px;
-  background: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
 }
 
@@ -12,7 +12,7 @@
   height: 64px;
   border-radius: 50%;
   background-color: #f1f5f9;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,20 +22,20 @@
 .empty-title {
   font-size: 16px;
   font-weight: 600;
-  color: var(--color-text-main, #0f172a);
+  color: var(--color-text-main);
   margin: 0 0 4px;
 }
 
 .empty-description {
   font-size: 14px;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 /* Data Table */
 .table-container {
-  background: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -51,13 +51,13 @@
 .data-table th,
 .data-table td {
   padding: 14px 20px;
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .data-table th {
   background: #f8fafc;
   font-weight: 600;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 
@@ -70,15 +70,15 @@
   align-items: center;
   gap: 10px;
   font-weight: 500;
-  color: var(--color-text-main, #0f172a);
+  color: var(--color-text-main);
 }
 
 .doc-icon {
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
 }
 
 .cell-muted {
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
 }
 
 /* Badges */
@@ -92,10 +92,22 @@
   font-weight: 500;
 }
 
-.badge-success { background: #dcfce7; color: #15803d; }
-.badge-warning { background: #fef9c3; color: #a16207; }
-.badge-danger { background: #fee2e2; color: #b91c1c; }
-.badge-neutral { background: #f1f5f9; color: #475569; }
+.badge-success {
+  background: #dcfce7;
+  color: #15803d;
+}
+.badge-warning {
+  background: #fef9c3;
+  color: #a16207;
+}
+.badge-danger {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.badge-neutral {
+  background: #f1f5f9;
+  color: #475569;
+}
 
 .status-dot {
   width: 6px;
@@ -115,7 +127,7 @@
   padding: 6px;
   border-radius: 6px;
   cursor: pointer;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
   transition: all 0.15s ease;
 }
 

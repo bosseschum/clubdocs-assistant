@@ -11,13 +11,13 @@
 .page-title {
   font-size: 24px;
   font-weight: 700;
-  color: var(--color-text-main, #0f172a);
+  color: var(--color-text-main);
   margin: 0 0 4px;
 }
 
 .page-subtitle {
   font-size: 14px;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -58,7 +58,7 @@
   justify-content: center;
   padding: 48px;
   gap: 12px;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
 }
 
 .spinner {
@@ -71,5 +71,7 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -19,11 +19,11 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
 }
 
 .chat-bubble.user .avatar {
-  background-color: var(--color-primary, #2563eb);
+  background-color: var(--color-primary);
   color: white;
 }
 
@@ -40,15 +40,15 @@
 }
 
 .chat-bubble.user .message-body {
-  background-color: var(--color-primary, #2563eb);
+  background-color: var(--color-primary);
   color: white;
   border-radius: 16px 16px 2px 16px;
 }
 
 .chat-bubble.assistant .message-body {
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
-  color: var(--color-text-main, #0f172a);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-main);
   border-radius: 16px 16px 16px 2px;
 }
 
@@ -60,8 +60,8 @@
 /* Sources Accordion */
 .sources-accordion {
   font-size: 13px;
-  background: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -74,7 +74,7 @@
   cursor: pointer;
   background-color: #f8fafc;
   font-weight: 500;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
 }
 
 .sources-summary:hover {
@@ -101,13 +101,13 @@
 .source-header {
   display: flex;
   gap: 6px;
-  color: var(--color-text-main, #0f172a);
+  color: var(--color-text-main);
 }
 
 .source-quote {
   margin: 4px 0 0;
   font-style: italic;
-  color: var(--color-text-muted, #64748b);
-  border-left: 2px solid var(--color-border, #e2e8f0);
+  color: var(--color-text-muted);
+  border-left: 2px solid var(--color-border);
   padding-left: 8px;
 }
