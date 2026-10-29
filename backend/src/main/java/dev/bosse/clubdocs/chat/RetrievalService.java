@@ -42,8 +42,13 @@ public class RetrievalService {
 
     /** Best matches first. An empty list means nothing was found. */
     public List<RetrievedChunk> retrieve(String question) {
+        return retrieve(question, TOP_K);
+    }
+
+    /** Best matches first, with a custom top-K. An empty list means nothing was found. */
+    public List<RetrievedChunk> retrieve(String question, int topK) {
         List<Document> hits = vectorStore.similaritySearch(
-                SearchRequest.builder().query(question).topK(TOP_K).build());
+                SearchRequest.builder().query(question).topK(topK).build());
         if (hits == null || hits.isEmpty()) {
             return List.of();
         }
