@@ -123,7 +123,7 @@
 .source-quote p.relevant-paragraph {
   color: var(--color-text-main);
   font-weight: 600;
-  background: #fef3c7;
+  background: var(--color-source-highlight);
   border-radius: 3px;
   padding: 2px 4px;
 }

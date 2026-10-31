@@ -7,6 +7,7 @@
   --color-primary: light-dark(#2563eb, #3b82f6);
   --color-text-main: light-dark(#0f172a, #f8fafc);
   --color-text-muted: light-dark(#64748b, #94a3b8);
+  --color-source-highlight: light-dark(#fef3c7, #713f12);
 }
 
 html.dark {
