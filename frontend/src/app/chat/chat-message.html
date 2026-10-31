@@ -12,23 +12,27 @@
       <p class="text">{{ formattedText() }}</p>
     </div>
 
-    @if (message().sources.length > 0) {
+    @if (visibleSources().length > 0) {
       <details class="sources-accordion">
         <summary class="sources-summary">
           <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           <span>Quellen</span>
-          <span class="sources-count">{{ cited().length }} zitiert von {{ message().sources.length }}</span>
+          <span class="sources-count">{{ cited().length }} zitiert von {{ visibleSources().length }}</span>
         </summary>
 
         <ol class="sources-list">
-          @for (source of message().sources; track $index) {
+          @for (source of visibleSources(); track $index; let sourceIndex = $index) {
             <li class="source-item" [class.cited]="cited().includes($index + 1)">
               <div class="source-header">
                 <span class="source-badge">[{{ $index + 1 }}]</span>
                 <span class="source-file">{{ source.filename }}</span>
                 <span class="source-page">S. {{ source.page }}</span>
               </div>
-              <blockquote class="source-quote">{{ source.text }}</blockquote>
+              <blockquote class="source-quote">
+                @for (paragraph of paragraphs(source.text); track $index) {
+                  <p [class.relevant-paragraph]="isRelevantParagraph(sourceIndex + 1, paragraph, source.text)">{{ paragraph }}</p>
+                }
+              </blockquote>
             </li>
           }
         </ol>

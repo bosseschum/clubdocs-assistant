@@ -102,4 +102,30 @@ describe('ChatPage', () => {
     expect(page.textContent).toContain('[1]');
     expect(page.querySelector('li.cited')).not.toBeNull();
   })
+
+  it('omits the sources panel when the documents have no answer', async () => {
+    ask('Was steht zu einem nicht dokumentierten Thema?');
+    const request = http.expectOne({ method: 'POST', url: '/api/chat' });
+    request.flush({
+      answer: 'Dazu habe ich in den Dokumenten keine Information gefunden.',
+      sources: answer.sources,
+    });
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(page.querySelector('.sources-accordion')).toBeNull();
+  });
+
+  it('displays source paragraphs separately and highlights the cited evidence', async () => {
+    ask(QUESTION);
+    const request = http.expectOne({ method: 'POST', url: '/api/chat' });
+    request.flush({
+      answer: 'Der Jahresbeitrag beträgt 48 Euro [1].',
+      sources: [{ ...answer.sources[0], text: 'Einleitung.\nFortsetzung der Einleitung.\n\nDer Jahresbeitrag beträgt 48 Euro.\nWeiterer Satz.' }],
+    });
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(page.querySelectorAll('.source-quote p')).toHaveLength(2);
+    expect(page.querySelector('.source-quote p')?.textContent).toBe('Einleitung. Fortsetzung der Einleitung.');
+    expect(page.querySelectorAll('.source-quote p.relevant-paragraph')).toHaveLength(1);
+  });
 });

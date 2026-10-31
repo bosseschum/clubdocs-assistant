@@ -111,3 +111,19 @@
   border-left: 2px solid var(--color-border);
   padding-left: 8px;
 }
+
+.source-quote p {
+  margin: 0 0 8px;
+}
+
+.source-quote p:last-child {
+  margin-bottom: 0;
+}
+
+.source-quote p.relevant-paragraph {
+  color: var(--color-text-main);
+  font-weight: 600;
+  background: #fef3c7;
+  border-radius: 3px;
+  padding: 2px 4px;
+}
