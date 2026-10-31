@@ -1,0 +1,61 @@
+# Retrieval Evaluation
+
+CHUNK_SIZE_CHARS = 800
+CHUNK_OVERLAP_CHARS = 150
+TOP_K = 4
+
+## Overall Hit@K
+
+| K | Hits | Percentage |
+|---|------|------------|
+| 1 | 12   | 46.2%      |
+| 2 | 18   | 69.2%      |
+| 3 | 20   | 76.9%      |
+| 4 | 21   | 80.8%      |
+| 6 | 22   | 84.6%      |
+| 8 | 22   | 84.6%      |
+
+## Hit@4 by Category
+
+| Category | Hits | Total | Percentage |
+|----------|------|-------|------------|
+| fact     | 16   | 20    | 80.0%      |
+| confusable | 4  | 5     | 80.0%      |
+| conflict | 1    | 1     | 100.0%     |
+
+## Misses (evidence not found in top 8)
+
+- **q07** Wie hoch ist die Mahngebühr?
+  - Chunk 1: Die nächste ordentliche Mitgliederversammlung findet am 13. März 2026 statt. Die...
+  - Chunk 2: Für eine Änderung der Satzung ist eine Mehrheit von drei Vierteln der abgegebene...
+  - Chunk 3: Frühstück erstattet. Bei
+einer Abwesenheit von mehr als 8 Stunden gibt es eine V...
+- **q09** Wie lange ist die Sporthalle samstags geöffnet?
+  - Chunk 1: Hallenordnung der Sporthalle am Schulweg
+
+Fiktives Beispieldokument für Tests. A...
+  - Chunk 2: Beitragsordnung des Sportvereins Musterstadt
+1999 e.V.
+
+Fiktives Beispieldokumen...
+  - Chunk 3: Satzung des Sportvereins Musterstadt 1999 e.V.
+
+Fiktives Beispieldokument für Te...
+- **q21** Wie hoch ist die Aufwandsentschädigung für Übungsleiter?
+  - Chunk 1: Für eine Änderung der Satzung ist eine Mehrheit von drei Vierteln der abgegebene...
+  - Chunk 2: zum Ende des Kalenderjahres gespeichert, das auf den Austritt
+folgt. Buchungsbel...
+  - Chunk 3: Jahr.
+
+§ 3 Aufnahmegebühr
+
+Bei der Aufnahme wird einmalig eine Aufnahmegebühr vo...
+- **q22** Wie lange werden Mitgliedsdaten nach dem Austritt gespeichert?
+  - Chunk 1: Die nächste ordentliche Mitgliederversammlung findet am 13. März 2026 statt. Die...
+  - Chunk 2: Protokoll der ordentlichen Mitgliederversammlung
+am 14. März 2025
+
+Fiktives Beis...
+  - Chunk 3: Schriftführer. Die Mitglieder des
+Vorstands werden für die Dauer von zwei Jahren...
+

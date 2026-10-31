@@ -1,0 +1,59 @@
+# Retrieval Evaluation
+
+CHUNK_SIZE_CHARS = 800
+CHUNK_OVERLAP_CHARS = 100
+TOP_K = 3
+
+## Overall Hit@K
+
+| K | Hits | Percentage |
+|---|------|------------|
+| 1 | 10   | 38.5%      |
+| 2 | 14   | 53.8%      |
+| 3 | 16   | 61.5%      |
+| 4 | 17   | 65.4%      |
+| 6 | 20   | 76.9%      |
+| 8 | 22   | 84.6%      |
+
+## Hit@4 by Category
+
+| Category | Hits | Total | Percentage |
+|----------|------|-------|------------|
+| fact     | 13   | 20    | 65.0%      |
+| confusable | 3  | 5     | 60.0%      |
+| conflict | 1    | 1     | 100.0%     |
+
+## Misses (evidence not found in top 8)
+
+- **q07** Wie hoch ist die Mahngebühr?
+  - Chunk 1: Die nächste ordentliche Mitgliederversammlung findet am 13. März 2026 statt. Die...
+  - Chunk 2: Für eine Änderung der Satzung ist eine Mehrheit von drei Vierteln der abgegebene...
+  - Chunk 3: ganz oder teilweise
+erlassen. Der Vorstand entscheidet innerhalb von vier Wochen...
+- **q09** Wie lange ist die Sporthalle samstags geöffnet?
+  - Chunk 1: Hallenordnung der Sporthalle am Schulweg
+
+Fiktives Beispieldokument für Tests. A...
+  - Chunk 2: Beitragsordnung des Sportvereins Musterstadt
+1999 e.V.
+
+Fiktives Beispieldokumen...
+  - Chunk 3: Satzung des Sportvereins Musterstadt 1999 e.V.
+
+Fiktives Beispieldokument für Te...
+- **q21** Wie hoch ist die Aufwandsentschädigung für Übungsleiter?
+  - Chunk 1: Für eine Änderung der Satzung ist eine Mehrheit von drei Vierteln der abgegebene...
+  - Chunk 2: den Austritt
+folgt. Buchungsbelege müssen aus steuerrechtlichen Gründen zehn Jah...
+  - Chunk 3: Protokoll der ordentlichen Mitgliederversammlung
+am 14. März 2025
+
+Fiktives Beis...
+- **q22** Wie lange werden Mitgliedsdaten nach dem Austritt gespeichert?
+  - Chunk 1: Die nächste ordentliche Mitgliederversammlung findet am 13. März 2026 statt. Die...
+  - Chunk 2: ganz oder teilweise
+erlassen. Der Vorstand entscheidet innerhalb von vier Wochen...
+  - Chunk 3: Protokoll der ordentlichen Mitgliederversammlung
+am 14. März 2025
+
+Fiktives Beis...

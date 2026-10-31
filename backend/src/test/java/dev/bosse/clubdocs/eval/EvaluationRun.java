@@ -91,8 +91,6 @@ class EvaluationRun {
         }
     }
 
-    // ---- your parts ------------------------------------------------------------------------
-
     /**
      * Reads src/test/resources/eval/questions.json into a list of EvalQuestion.
      * Uses Jackson 3 (tools.jackson.databind) as required by Spring Boot 4.
@@ -293,7 +291,7 @@ class EvaluationRun {
         return report;
     }
 
-    // ---- infrastructure (done for you) ---------------------------------------------------------
+    // ---- infrastructure ---------------------------------------------------------
 
     /** Uploads every sample PDF through the real service and waits until all of them are ingested. */
     private void ingestSampleDocuments() throws Exception {

@@ -30,7 +30,7 @@ public class RetrievalService {
      * (about 15 to 20 seconds for four chunks, as far as measured with a 4B model), so this is a
      * trade-off between answer quality and latency. Milestone 5 is where you tune it.
      */
-    static final int TOP_K = 4;
+    static final int TOP_K = 3;
 
     private final VectorStore vectorStore;
     private final DocumentService documentService;

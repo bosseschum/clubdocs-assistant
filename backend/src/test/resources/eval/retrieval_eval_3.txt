@@ -1,0 +1,78 @@
+# Retrieval Evaluation
+
+CHUNK_SIZE_CHARS = 1200
+CHUNK_OVERLAP_CHARS = 225
+TOP_K = 6
+
+## Overall Hit@K
+
+| K | Hits | Percentage |
+|---|------|------------|
+| 1 | 6    | 23.1%      |
+| 2 | 9    | 34.6%      |
+| 3 | 12   | 46.2%      |
+| 4 | 15   | 57.7%      |
+| 6 | 20   | 76.9%      |
+| 8 | 22   | 84.6%      |
+
+## Hit@4 by Category
+
+| Category | Hits | Total | Percentage |
+|----------|------|-------|------------|
+| fact     | 11   | 20    | 55.0%      |
+| confusable | 4  | 5     | 80.0%      |
+| conflict | 0    | 1     | 0.0%       |
+
+## Misses (evidence not found in top 8)
+
+- **q01** Wie hoch ist der Jahresbeitrag für Erwachsene?
+  - Chunk 1: Spätere Anträge werden nicht mehr
+erstattet.
+
+§ 5 Auszahlung
+
+Die Auszahlung erf...
+  - Chunk 2: entlastet.
+
+TOP 5 Wahlen
+
+Der Vorstand wird für zwei Jahre neu gewählt. Anna Bei...
+  - Chunk 3: Beitragsordnung des Sportvereins Musterstadt
+1999 e.V.
+
+Fiktives Beispieldokumen...
+- **q09** Wie lange ist die Sporthalle samstags geöffnet?
+  - Chunk 1: Hallenordnung der Sporthalle am Schulweg
+
+Fiktives Beispieldokument für Tests. A...
+  - Chunk 2: Beitragsordnung des Sportvereins Musterstadt
+1999 e.V.
+
+Fiktives Beispieldokumen...
+  - Chunk 3: Satzung des Sportvereins Musterstadt 1999 e.V.
+
+Fiktives Beispieldokument für Te...
+- **q21** Wie hoch ist die Aufwandsentschädigung für Übungsleiter?
+  - Chunk 1: Spätere Anträge werden nicht mehr
+erstattet.
+
+§ 5 Auszahlung
+
+Die Auszahlung erf...
+  - Chunk 2: Für eine Änderung der Satzung ist eine Mehrheit von drei Vierteln der abgegebene...
+  - Chunk 3: Protokoll der ordentlichen Mitgliederversammlung
+am 14. März 2025
+
+Fiktives Beis...
+- **q23** Wie lange müssen Buchungsbelege aufbewahrt werden?
+  - Chunk 1: Protokoll der ordentlichen Mitgliederversammlung
+am 14. März 2025
+
+Fiktives Beis...
+  - Chunk 2: Spätere Anträge werden nicht mehr
+erstattet.
+
+§ 5 Auszahlung
+
+Die Auszahlung erf...
+  - Chunk 3: Die nächste ordentliche Mitgliederversammlung findet am 13. März 2026 statt. Die...

@@ -47,7 +47,7 @@ public class IngestionService {
     // These values are a starting point. Milestone 5 (evaluation) is where you tune
     // them.
     private static final int CHUNK_SIZE_CHARS = 800;
-    private static final int CHUNK_OVERLAP_CHARS = 150;
+    private static final int CHUNK_OVERLAP_CHARS = 100;
 
     private final TextChunker chunker = new TextChunker(CHUNK_SIZE_CHARS, CHUNK_OVERLAP_CHARS);
 
